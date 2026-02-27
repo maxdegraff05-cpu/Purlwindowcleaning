@@ -74,47 +74,10 @@ revealElements.forEach(element => {
 });
 
 // =====================
-// Contact Form Submission (Formspree)
+// Contact Form - Let Formspree handle submission
 // =====================
-const contactForm = document.getElementById('contactForm');
-const formSuccess = document.getElementById('formSuccess');
-
-contactForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const formData = new FormData(contactForm);
-    const submitBtn = contactForm.querySelector('button[type="submit"]');
-    const originalBtnText = submitBtn.textContent;
-    submitBtn.textContent = 'Sending...';
-    submitBtn.disabled = true;
-    
-    try {
-        const response = await fetch(contactForm.action, {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'Accept': 'application/json'
-            }
-        });
-        
-        if (response.ok) {
-            // Show success message
-            formSuccess.classList.add('show');
-            contactForm.reset();
-            setTimeout(() => {
-                formSuccess.classList.remove('show');
-            }, 5000);
-        } else {
-            alert('There was an error submitting the form. Please try again.');
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('There was an error submitting the form. Please try again.');
-    } finally {
-        submitBtn.textContent = originalBtnText;
-        submitBtn.disabled = false;
-    }
-});
+// Removed AJAX submission - Formspree will handle it directly
+// This avoids CORS issues with custom domains
 
 // =====================
 // Click-to-Call Tracking (Analytics)
