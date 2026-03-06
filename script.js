@@ -74,10 +74,56 @@ revealElements.forEach(element => {
 });
 
 // =====================
-// Contact Form - Let Formspree handle submission
+// Contact Form Submission
 // =====================
-// Removed AJAX submission - Formspree will handle it directly
-// This avoids CORS issues with custom domains
+const contactForm = document.getElementById('contactForm');
+const formSuccess = document.getElementById('formSuccess');
+
+contactForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    // Get form data
+    const formData = new FormData(contactForm);
+    const data = Object.fromEntries(formData);
+    
+    // Here you would normally send the data to a server
+    // For demo purposes, we'll just show a success message
+    console.log('Form Data:', data);
+    
+    // Show success message
+    formSuccess.classList.add('show');
+    
+    // Reset form
+    contactForm.reset();
+    
+    // Hide success message after 5 seconds
+    setTimeout(() => {
+        formSuccess.classList.remove('show');
+    }, 5000);
+    
+    // In production, you would do something like:
+    /*
+    fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+    .then(response => response.json())
+    .then(data => {
+        formSuccess.classList.add('show');
+        contactForm.reset();
+        setTimeout(() => {
+            formSuccess.classList.remove('show');
+        }, 5000);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('There was an error submitting the form. Please try again.');
+    });
+    */
+});
 
 // =====================
 // Click-to-Call Tracking (Analytics)
